@@ -43,14 +43,20 @@ Menu Navigation button. */
     float: left;
     width: 10%;
     margin-left: 5%;
-/*    outline: 1px solid red;*/
+    padding-top: 8px;
 }
 .col-header:last-child{
     width: 85%; /* 100% - 10% -5%= 85%*/
     margin-left: 0%;
 
 }
-
+@media (min-width:720px){
+    /* At this breakpoint, hamburger menu disappears and the title must fill all the width of the column so that the text
+    is centred properly. */
+    .col-header:last-child{
+        width: 100%;
+    }
+}
 /*
 ===============================================================*/
 
