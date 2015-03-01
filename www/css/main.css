@@ -59,10 +59,23 @@ html{
 	height:100%;
     background-color:#475500;
     font-family: Calibri, Arial, Helvetica, sans-serif;
-    padding: 0 2%;
     position: relative;
     min-height: 100%;
+    /* On mobile screens, don't leave any */
 }
+
+@media (min-width:960px){
+    html{
+        padding: 0 2%;
+    }
+
+    .st-container{
+        max-width: 1680px;
+        margin: 0 auto;
+    }
+
+}
+
 
 /* This class is applied on body tag so that root font-size is set according to different screen
 sizes. Then any text paragraph can be set using rem unit. */
@@ -103,12 +116,6 @@ h1,h2,h3,h4{
 
 body{
     /* Let the body fills the whole page vertically, this helps in Sticky Footer creation. */
-    height: 100%;
-}
-.wrapper {
-    max-width: 960px;
-    margin: 0 auto;
-    /* Let the wrapper fills the whole page vertically, this helps in Sticky Footer creation.*/
     height: 100%;
 }
 
@@ -199,7 +206,7 @@ border-right-width: 0px;
         height: 100%;
     }
 
-    /* Keep the scrollability of the web app but hide scrollbar as it has bad style on Devices browser. */
+    /* Keep the scrollability of the web app but hide scrollbar as it has bad style on Devices' browser. */
     ::-webkit-scrollbar {
         display: none;
     }
@@ -215,7 +222,7 @@ border-right-width: 0px;
 
     .st-content-inner{
         /* Set minimum hieght to push the footer down to the page*/
-        min-height: 91.5%;
+        min-height: 94.5%;
         background-color: #B0B291;
     }
 
@@ -253,21 +260,21 @@ border-right-width: 0px;
 
     /* Effect 7: 3D rotate in *//* /TODO: rename effect 7*/
 
-    .st-effect-7.st-container {
+    .rotate-in-3d.st-container {
         -webkit-perspective: 1500px;
         perspective: 1500px;
         -webkit-perspective-origin: 0% 50%;
         perspective-origin: 0% 50%;
     }
 
-    .st-effect-7 .st-pusher,
+    .rotate-in-3d  .st-pusher,
     footer {
         -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
     }
 
 
-    .st-effect-7.st-menu {
+    .rotate-in-3d.st-menu {
         -webkit-transform: translate3d(-100%, 0, 0) rotateY(-90deg);
         transform: translate3d(-100%, 0, 0) rotateY(-90deg);
         -webkit-transform-origin: 100% 50%;
@@ -276,12 +283,12 @@ border-right-width: 0px;
         transform-style: preserve-3d;
     }
 
-    .st-effect-7.st-menu-open .st-pusher {
+    .rotate-in-3d.st-menu-open .st-pusher {
       -webkit-transform: translate3d(300px, 0, 0);
       transform: translate3d(300px, 0, 0);
     }
 
-    .st-effect-7.st-menu-open .st-effect-7.st-menu {
+    .rotate-in-3d.st-menu-open .rotate-in-3d.st-menu {
       /*visibility: visible;*/
       -webkit-transition: -webkit-transform 0.5s;
       transition: transform 0.5s;
@@ -314,7 +321,7 @@ border-right-width: 0px;
         border-right: 1px solid #717171;
     }
 
-    .st-effect-7.st-menu-open .st-pusher {
+    .rotate-in-3d.st-menu-open .st-pusher {
       -webkit-transform: translate3d(0, 0, 0);
       transform: translate3d(0, 0, 0);
     }
