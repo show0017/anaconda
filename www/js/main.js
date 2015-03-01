@@ -6,10 +6,12 @@ var anacondaApp = (function(){
     }
 
     var onDeviceReady = function(){
-        console.log("Device is ready to use its functionalities");
+        console.log("***************** Device is ready to use its functionalities  ******************");
+        contacts.load();
     }
 
     var onPageLoaded = function(){
+        console.log("Page is loaded");
         svgIcons.load();
         siteNavigator.initNavBarListeners();
     }
@@ -60,6 +62,34 @@ var touchModule = (function(){
     }
 })();
 
+var contacts = (function(){
+    var load = function(){
+
+        var options      = new ContactFindOptions();
+        options.filter   = ""; // A string can be used as a search filter when querying the contacts database
+        options.multiple = true; // return multiple results.
+
+        var fields       = [navigator.contacts.fieldType.displayName,
+                            navigator.contacts.fieldType.phoneNumbers,
+                            navigator.contacts.fieldType.addresses,
+                            navigator.contacts.fieldType.photos];
+
+        /* Asynchronously method to query the device contacts database.It returns an array of Contact objects.*/
+        navigator.contacts.find(fields, onSuccess, onError, options);
+    }
+
+    var done = function(contacts){
+        console.log("Found "+ contacts.length+ " on the phone");
+    }
+
+    var fail = function(contacts){
+        console.error("Error:"+ contacts.code);
+    }
+
+    return{
+        load: load
+    }
+})();
 var svgIcons = (function(){
 
     var load = function(){
