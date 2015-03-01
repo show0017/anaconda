@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="ca.edumedia.show0017.anaconda" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="loglevel" value="DEBUG" />
+    <feature name="Contacts">
+        <param name="android-package" value="org.apache.cordova.contacts.ContactManager" />
+    </feature>
+    <icon density="mdpi" src="www/img/ic_launcher_snake_mdpi.png" />
+    <icon density="hdpi" src="www/img/ic_launcher_snake_hdpi.png" />
+    <icon density="xhdpi" src="www/img/ic_launcher_snake_xhdpi.png" />
+    <icon density="xxhdpi" src="www/img/ic_launcher_snake_xxhdpi.png" />
+    <icon density="xxxhdpi" src="www/img/ic_launcher_snake_xxhdpi.png" />
+    <name>Anaconda</name>
+    <description>
+        A sample application to test single page application.
+    </description>
+    <author email="show0017@algonquinlive.com" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+</widget>
