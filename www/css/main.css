@@ -116,10 +116,10 @@ body{
 Nav Bar
 ==============================================================*/
 #hamburger-menu {
-    display: none;
+    display: inline-block;
 }
 
-#small-screen-nav-bar{
+#wide-screen-nav-bar{
     display: none;
 }
 
@@ -137,17 +137,16 @@ Nav Bar
     text-align: center;
 }
 
-.nav ul li {
-    display: inline-block;
-    text-align: left;
-    width: 33.33%;
-    border-left-width: 0px;
-    border-right-width: 0px;
+
+.nav ul li{
+display: block;
+width: 100%; /* So that anchor tag width inherits the width of list item*/
+text-align: left;
 }
 
-.nav ul li:nth-child(2){
-    border-left: 1px solid #717171;
-    border-right: 1px solid #717171;
+.nav ul li:nth-child(2) {
+border-left-width: 0px;
+border-right-width: 0px;
 }
 
 .nav [data-role="pagelink"] {
@@ -273,49 +272,52 @@ Nav Bar
         transform-style: preserve-3d;
     }
 
-@media all and (max-width:720px){
-  #hamburger-menu{
-      display: inline-block;
-  }
-
-  #wide-screen-nav-bar {
-      display: none;
-  }
-
-  #small-screen-nav-bar{
-      display: block;
-  }
-  .nav ul li{
-    display: block;
-    width: 100%; /* So that anchor tag width inherits the width of list item*/
-  }
-
-  .nav ul li:nth-child(2) {
-    border-left-width: 0px;
-    border-right-width: 0px;
-  }
-
-  .st-effect-7.st-menu-open .st-pusher {
+    .st-effect-7.st-menu-open .st-pusher {
       -webkit-transform: translate3d(300px, 0, 0);
       transform: translate3d(300px, 0, 0);
-  }
+    }
 
-  .st-effect-7.st-menu-open .st-effect-7.st-menu {
+    .st-effect-7.st-menu-open .st-effect-7.st-menu {
       /*visibility: visible;*/
       -webkit-transition: -webkit-transform 0.5s;
       transition: transform 0.5s;
       -webkit-transform: translate3d(-100%, 0, 0) rotateY(0deg);
       transform: translate3d(-100%, 0, 0) rotateY(0deg);
+    }
+
+@media all and (min-width:720px){
+  #hamburger-menu{
+      display: none;
   }
+
+  #wide-screen-nav-bar {
+      display: block;
+  }
+
+  #small-screen-nav-bar{
+      display: none;
+  }
+
+    .nav ul li {
+        display: inline-block;
+        width: 33.33%;
+        border-left-width: 0px;
+        border-right-width: 0px;
+    }
+
+    .nav ul li:nth-child(2){
+        border-left: 1px solid #717171;
+        border-right: 1px solid #717171;
+    }
 }
 
-@media screen and (max-width:500px){
+@media screen and (min-width:500px){
     #hamburger-menu{
         width: 40px;
         height: 40px;
     }
 }
-@media screen and (max-width:440px){
+@media screen and (min-width:440px){
     #hamburger-menu{
         width: 32px;
         height: 32px;
