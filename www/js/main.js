@@ -11,22 +11,7 @@ var anacondaApp = (function(){
 
     var onPageLoaded = function(){
         svgIcons.load();
-
         siteNavigator.initNavBarListeners();
-        /* Execute HTML animatin of hamburger menu.
-        Note that hamburger menu has two listeners for the click event:
-        1. Handler for HTML animation to push the page from left to right.
-        2. Handler for svg icon animation to change it from 3 staked lines to x
-        */
-
-        var hamburgerMenu = document.querySelector("#hamburger-menu");
-        hamburgerMenu.addEventListener("click", function(e){
-            e.preventDefault();
-    //        document.body.classList.toggle("active");
-            var container = document.querySelector(".st-container");
-            container.classList.toggle("st-menu-open");
-        });
-
     }
 
     var onWindowResize = function(){
@@ -45,40 +30,11 @@ var anacondaApp = (function(){
     }
 })();
 
-var touchModule = (function(){
-
-    //Test for browser support of touch events
-    var detectTouchSupport = function ( ){
-      msGesture = navigator && navigator.msPointerEnabled &&
-                    navigator.msMaxTouchPoints > 0 && MSGesture;
-      var touchSupport = (("ontouchstart" in window) || msGesture ||
-                          (window.DocumentTouch && document instanceof DocumentTouch));
-      return touchSupport;
-    }
-
-    //handle the touchend event
-    var handleTouch = function (ev){
-        ev.preventDefault();
-        ev.stopImmediatePropagation();
-        var touch = ev.changedTouches[0];        //this is the first object touched
-        var newEvt = document.createEvent("MouseEvent");
-        //old method works across browsers, though it is deprecated.
-        newEvt.initMouseEvent("click", true, true, window, 1, touch.screenX, touch.screenY,
-                              touch.clientX, touch.clientY);
-        ev.originalTarget.dispatchEvent(newEvt);
-        //send the touch to the click handler
-    }
-
-    return{
-        detectTouchSupport : detectTouchSupport,
-        handleTouch : handleTouch
-    }
-})();
 
 var svgIcons = (function(){
 
     var load = function(){
-        /* Load all svg images and set their click/touch listeners. */
+        /* Load all svg images and set their tap event listeners. */
         var svgElementsArray = document.querySelectorAll("svg[data-icon-name]");
         for(var i=0; i<svgElementsArray.length; i++){
             var svgElement = svgElementsArray[i];
@@ -105,27 +61,33 @@ var svgIcons = (function(){
             })(snapCanvas));
 
             if(true === svgConfig.externalAnimationTrigger){
-                /* Click/Touch listener will be set to the anchor tag that represents
+                /* Tap event listener will be set to the anchor tag that represents
                 the parent node of SVG tag in HTML document. Exception for hamburger menu,
                 the listener will be set to SVG tag itself.*/
                 var targetElem = ("hamburgerCross" === iconNameDataSet)?
                     svgElement: svgElement.parentNode;
 
-                /* Add touch support */
-                //either add a touch or click listener
-                if(touchModule.detectTouchSupport()){
-                    targetElem.addEventListener("touchend", touchModule.handleTouch, false);
-                }
-                /* JS Closure must be used to lock the canvas and the configurations of
-                each svg separately. Note that initial value of toggle flag is false.*/
-                targetElem.addEventListener("click",
-                        targetElem.myToggleFunc = toggle(svgConfig, snapCanvas, false));
+                /* Add click/touch listener using hammar tap event. */
+                var hammertime = new Hammer(targetElem);
+                hammertime.on('tap', targetElem.myToggleFunc = toggle(svgConfig, snapCanvas, false));
+
             }
         }
     }
 
     var toggle = function(config, canvas, toggled){
         return function(){
+            if(-1 !== config.url.indexOf("hamburger")){
+                /* Execute HTML animatin of hamburger menu.
+                Note that hamburger menu has two listeners for the click event:
+                1. Handler for HTML animation to push the page from left to right.
+                2. Handler for svg icon animation to change it from 3 staked lines to x
+                */
+
+                var container = document.querySelector(".st-container");
+                container.classList.toggle("st-menu-open");
+            }
+
             /* Loop on animation configurations of the given SVG. Select the
             given id, parse the attribute of that id. Finally apply the attribute
             to the id using snap svg library.*/
@@ -266,11 +228,10 @@ var siteNavigator = (function(){
             with the same attributes, there must be saved in different keys to avoid any value overwriting.*/
             key += (i<numLinks/2)?"-smallScreen":"-wideScreen";
             links[key] = linksArray[i];
-            //either add a touch or click listener
-            if(touchModule.detectTouchSupport()){
-                linksArray[i].addEventListener("touchend", touchModule.handleTouch, false);
-            }
-            linksArray[i].addEventListener("click", handleNav, false);
+
+            var hammertime = new Hammer(linksArray[i]);
+            hammertime.on('tap', handleNav);
+
         }
         delete linksArray; // Free the memory to increase perfromance.
 
@@ -281,12 +242,16 @@ var siteNavigator = (function(){
 
     //handle the click event
     var handleNav = function (ev){
+        console.log(ev.target.outerHTML);
         ev.preventDefault();
-        /* Since the handlers of click/touch listeners are registered using bubbling
-        propatation. Also the handlers are registered for acnhor tags not for SVG tags.
-        Accordingly, currentTarget must be used instead of target to get href attribute
-        of anchor tag.*/
-        var href = ev.currentTarget.href;
+        /* The user might tap on anchor itself or its children elements (svg image or span). In all cases, get the href from the anchor tag.
+        Note that user might tap on parts of svg image so I need to navigate backward toward parent anchor node to get href value.*/
+        var anchorTag = ev.target;
+        while("undefined" === typeof(anchorTag.href)){
+            anchorTag = anchorTag.parentElement;
+        }
+
+        var href = anchorTag.href;
         var destPageId = href.split("#")[1];
         var srcPageId = document.URL.split("#")[1];
         doPageTransition(srcPageId, destPageId, true);
