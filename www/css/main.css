@@ -199,9 +199,13 @@ border-right-width: 0px;
         height: 100%;
     }
 
+    /* Keep the scrollability of the web app but hide scrollbar as it has bad style on Devices browser. */
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
     .st-content {
         overflow-y: scroll;
-/*        background: #f3efe0;*/
     }
 
     .st-content,
