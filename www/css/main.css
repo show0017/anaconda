@@ -309,6 +309,11 @@ border-right-width: 0px;
         border-left: 1px solid #717171;
         border-right: 1px solid #717171;
     }
+
+    .st-effect-7.st-menu-open .st-pusher {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
 }
 
 @media screen and (min-width:500px){
