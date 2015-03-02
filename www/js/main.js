@@ -45,7 +45,6 @@ var touchModule = (function(){
 
     //handle the touchend event
     var handleTouch = function (ev){
-        console.log("Touch event");
       if( ev.type == "touchend"){
         ev.preventDefault();
         var touch = ev.changedTouches[0];        //this is the first object touched
@@ -63,6 +62,8 @@ var touchModule = (function(){
 })();
 
 var contacts = (function(){
+    var numOfEntries=-1;
+    var entries;
     var load = function(){
 
         var options      = new ContactFindOptions();
@@ -78,18 +79,64 @@ var contacts = (function(){
         navigator.contacts.find(fields, onSuccess, onError, options);
     }
 
-    var done = function(contacts){
+    var onSuccess = function(contacts){
         console.log("Found "+ contacts.length+ " on the phone");
+        entries = contacts;
+        numOfEntries = contacts.length;
     }
 
-    var fail = function(contacts){
+    var onError = function(contacts){
         console.error("Error:"+ contacts.code);
+        numOfEntries = -1;
+        entries = [];
+    }
+
+    var getEntries = function(){
+        return entries;
+    }
+
+    var getAddresses = function(index){
+        var addressess=[];
+        if(entries[index]){
+            var array = entries[index].addresses;
+            for (var i=0; array && i< array.length; i++){
+                addressess.push(array[i].formatted);
+            }
+        }
+        return addressess;
+    }
+
+    var getEmails = function(index){
+        var emails=[];
+        if(entries[index]){
+            var array = entries[index].emails;
+            for (var i=0; array && i< array.length; i++){
+                emails.push(array[i].value);
+            }
+        }
+        return emails;
+    }
+
+    var getPhoneNumbers = function(index){
+        var phones=[];
+        if(entries[index]){
+            var array = entries[index].phoneNumbers;
+            for (var i=0; array && i< array.length; i++){
+                phones.push(array[i].value);
+            }
+        }
+        return phones;
     }
 
     return{
-        load: load
+        load: load,
+        getEntries: getEntries,
+        getAddresses: getAddresses,
+        getEmails: getEmails,
+        getPhoneNumbers: getPhoneNumbers
     }
 })();
+
 var svgIcons = (function(){
 
     var load = function(){
@@ -149,7 +196,6 @@ var svgIcons = (function(){
                 1. HTML animation to push the page from left to right.
                 2. SVG icon animation to change it from 3 staked lines to x
                 */
-                console.log("********************Hamburger Menu***********************");
                 var container = document.querySelector(".st-container");
                 container.classList.toggle("st-menu-open");
             }
@@ -334,6 +380,41 @@ var siteNavigator = (function(){
                 setTimeout(position.getCurrentLocation, 2000);
                 break;
             case "contacts":
+                /* Generate a random number from the available contacts to be displayed.
+                Note that a random number will be generated in the range (0, maximum length of contacts -1)*/
+
+                if(contacts.getEntries()){
+                    var randomIndex = Math.floor(Math.random() * contacts.getEntries().length);
+                    console.log("randomIndex is:" + randomIndex);
+                    var contactInfo = contacts.getEntries()[randomIndex];
+                    var tablePlaceHolders = document.querySelectorAll("table tr td");
+
+                    tablePlaceHolders[0].innerHTML = contactInfo.displayName;
+
+                    tablePlaceHolders[1].innerHTML ="";
+                    var contactAddresses = contacts.getAddresses(randomIndex);
+                    for(var j=0; j<contactAddresses.length; j++ ){
+                        tablePlaceHolders[1].innerHTML += contactAddresses[j] + "<br>";
+                    }
+
+                    tablePlaceHolders[2].innerHTML = "";
+                    var contactPhoneNumbers = contacts.getPhoneNumbers(randomIndex);
+                    for(var j=0; j<contactPhoneNumbers.length; j++ ){
+                        tablePlaceHolders[2].innerHTML += contactPhoneNumbers[j] + "<br>";
+                    }
+
+                    tablePlaceHolders[3].innerHTML = "";
+                    var contactEmails = contacts.getEmails(randomIndex);
+                    for(var j=0; j< contactEmails.length; j++){
+                        tablePlaceHolders[3].innerHTML += contactEmails[j] + "<br>";
+                    }
+
+                    var img = tablePlaceHolders[4].querySelector("img");
+                    img.src="";
+                    if(contactInfo.photos){
+                        img.src = contactInfo.photos[0].value;
+                    }
+                }
                 break;
             default:
         }
