@@ -18,11 +18,13 @@ var anacondaApp = (function(){
 
     var onWindowResize = function(){
         var container = document.querySelector(".st-container");
+        /* Check if the user is resizing the window and hamburger menu is opened. Then toggle the menu
+        and remove st-menu-open class so that if the user resize the window for small screen again,
+        the small-screen navigation bar is always hidden. */
         if ((720<window.innerWidth) &&
             (-1 !== container.className.indexOf("st-menu-open"))){
-
-            container.classList.remove("st-menu-open");
             var hamburgerMenu = document.querySelector("#hamburger-menu");
+            /* Note that the remoaval of st-menu-open class is done inside toggling function of hamburger menu.*/
             hamburgerMenu.myToggleFunc();
         }
     }
@@ -244,6 +246,12 @@ var position = (function (){
 
     var reportPosition = function ( position ){
         var canvas = document.querySelector("#canvas-map");
+
+        var canvasPaddingInPx = getComputedStyle(canvas,null).getPropertyValue("padding-left");
+        /* remove px from the padding string*/
+        canvasPaddingInPx = canvasPaddingInPx.substring(0, canvasPaddingInPx.length-2);
+        console.log(canvasPaddingInPx);
+        var canvasComputedWidth = canvas.width - 2* canvasPaddingInPx;
         var context = canvas.getContext("2d");
 
         // Create new img element
@@ -265,7 +273,7 @@ var position = (function (){
             position.coords.latitude+','+
             position.coords.longitude+'&'+
             'zoom=14'+ '&'+
-            'size=400x400'+'&'+
+            'size='+canvasComputedWidth+'x400'+'&'+
             'markers=color:red'+'|'+
             position.coords.latitude+','+
             position.coords.longitude+'&'+
@@ -447,23 +455,37 @@ var siteNavigator = (function(){
                 The link SVG of the wide screen navigation bar must be acitvated as well.
                 Thus the same user experience is kept upon window resizing.*/
                 links[destPageId+"-wideScreen"].myToggleFunc();
+
+                /* in case back button is pressed, toggle the svg anchor animation of the destination page.*/
+                if(isBackBtnPressed){
+                    links[destPageId+"-smallScreen"].myToggleFunc();
+                }
+
+                /* For small screen sizes, if hamburger menu is opened, make sure to close it after user's selection.*/
+                var container = document.querySelector(".st-container");
+                if (-1 !== container.className.indexOf("st-menu-open")){
+                    var hamburgerMenu = document.querySelector("#hamburger-menu");
+                    /* Note that the remoaval of st-menu-open class is done inside toggling function of hamburger menu.*/
+                    hamburgerMenu.myToggleFunc();
+                }
+
             }else{
                 /* case: wide screen navigation bar is displayed and user clicks on a link.
                 The link SVG of the small screen navigation bar must be activated as well.
                 Thus the same user experience is kept upond window resizing. */
                 links[destPageId+"-smallScreen"].myToggleFunc();
+
+                /* in case back button is pressed, toggle the svg anchor animation of the destination page.*/
+                if(isBackBtnPressed){
+                    links[destPageId+"-wideScreen"].myToggleFunc();
+                }
+
             }
 
             /* Reverse the animation of the source page's svg icon .
             The destination page animation will take place upon clicking the anchor/svg*/
             links[srcPageId+"-smallScreen"].myToggleFunc();
             links[srcPageId+"-wideScreen"].myToggleFunc();
-
-            /* in case back button is pressed, toggle the svg anchor animation of the destination page.*/
-            if(isBackBtnPressed){
-                links[destPageId+"-smallScreen"].myToggleFunc();
-                links[destPageId+"-wideScreen"].myToggleFunc();
-            }
 
             /* Set active-page class to the corresponding page. First hide the current
             page, then show the destination page. Finally start animation while showing

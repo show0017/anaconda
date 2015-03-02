@@ -65,8 +65,8 @@ Menu Navigation button. */
 html{
 	width:100%;
 	height:100%;
-    background-color:#475500;
-    font-family: Calibri, Arial, Helvetica, sans-serif;
+    background-color: hsl(69,54%,21%);
+    font-family: Calibri, Arial, Helvetica, sans-serif; /* First Font-Family Stack*/
     position: relative;
     min-height: 100%;
  }
@@ -113,7 +113,7 @@ h2, h3, p, td{
 }
 
 h1,h2,h3,h4{
-    font-family: Tahoma, Verdana, Geneva;
+    font-family: Tahoma, Verdana, Geneva; /* Second Font-Family Stack*/
 }
 
 body{
@@ -135,7 +135,7 @@ Nav Bar
 /* First navigation bar for wide screens where it would be shown only under the header*/
 .nav {
     width:100%;
-    background-color: #333E00;
+    background-color: hsl(69,100%,12%);
 }
 
 .nav ul {
@@ -182,9 +182,9 @@ border-right-width: 0px;
 }
 
 .nav [data-role="pagelink"]:hover {
-    background: rgba(0,0,0,0.2);
     box-shadow: inset 0 -1px rgba(0,0,0,0);
     color: #fff;
+    background-color: hsl(69,100%,32%);
 }
 
 .nav [data-role="pagelink"] span{
@@ -194,11 +194,8 @@ border-right-width: 0px;
 /*    padding-top: 6px;*/
 }
 .nav [data-role="pagelink"].active-link{
-    color: #B1D400; /* Hue base color*/
-/*    background-color: red;*/
-}
-.nav [data-role="pagelink"]:hover {
-    background-color: #87A100;
+    color: hsl(69,100%,42%);
+    background-color: hsla(69,100%,32%, 0.5);;
 }
 
     html,
@@ -226,7 +223,7 @@ border-right-width: 0px;
     .st-content-inner{
         /* Set minimum hieght to push the footer down to the page*/
         min-height: 93.1%;
-        background-color: #B0B291;
+        background-color: hsl(69,18%,69%);
     }
 
     .st-container {
@@ -338,7 +335,7 @@ border-right-width: 0px;
 /* Header Styling
 ============================================================*/
 header{
-    background: #E2E5BB;
+    background: hsl(69,45%,82%);
     /*Make sure that header height is fixed whether hamburger menu exists or not.*/
     height: 60px;
     transition: 0.5s margin ease;
@@ -393,7 +390,7 @@ header{
 /* Sticky Footer styling
 ===============================================================*/
 footer {
-    background: #E2E5BB;
+    background: hsl(69,45%,82%);
     /* Adjust position of footer with respect to main content div.*/
     position: absolute;
     left: 0;
@@ -417,6 +414,7 @@ footer {
 
 #canvas-map{
     padding-left: 2rem;
+    width: 70%;
 }
 
 /* Conract Page Styling
