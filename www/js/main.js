@@ -192,7 +192,7 @@ var svgIcons = (function(){
         return function(){
             if(-1 !== config.url.indexOf("hamburger")){
                 /* Execute HTML animatin of hamburger menu.
-                Note that hamburger menu has to handle:
+                Note that hamburger menu has to handle the following animations:
                 1. HTML animation to push the page from left to right.
                 2. SVG icon animation to change it from 3 staked lines to x
                 */
@@ -232,7 +232,6 @@ var position = (function (){
     var locationInfoContainerDiv; // location info div whose id is "loc-info-container" in HTML
 
     var getCurrentLocation = function(){
-        /*TODO: Use Cordova Geoloation API*/
       if( navigator.geolocation ){
           var params = {enableHighAccuracy: false, timeout:3600, maximumAge:60000};
           navigator.geolocation.getCurrentPosition( reportPosition, gpsError, params );
@@ -308,8 +307,6 @@ var position = (function (){
 })();
 
 var siteNavigator = (function(){
-    /* TODO: optimize any code that is repeated in this module or even sepatate corresponding
-    code snippets to anothe meaningful module. */
     var pages = {};
     var links={};
     var numLinks = 0;
@@ -322,9 +319,6 @@ var siteNavigator = (function(){
         numPages = pagesArray.length;
         var linksArray = document.querySelectorAll('[data-role="pagelink"]');
         numLinks = linksArray.length;
-
-        /* TODO: add check that lenght of links is equal to lenght of pages and
-        given ids are equal to given links href.*/
 
         /* save pages into js object where the key is the same as the given page id*/
         for(var i=0; i< numPages; i++){
@@ -502,9 +496,6 @@ var siteNavigator = (function(){
     var browserBackButton = function (ev){
         ev.preventDefault();
         var destPageId = location.hash.split("#")[1];  //hash will include the "#"
-
-        /*TODO: Check with Steve if there is js object or property that holds the source page id after
-        firing popstate event. */
 
         //update the visible div and the active tab
         doPageTransition(currentPageId, destPageId, false, true);
