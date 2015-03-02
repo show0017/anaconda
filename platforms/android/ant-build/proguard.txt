@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:6
+-keep class ca.edumedia.show0017.anaconda.CordovaApp { <init>(...); }
+

@@ -11,6 +11,7 @@
     <access origin="*" />
 
     <platform name="android">
+<!--  <div>Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>-->
       <icon src="www/img/ic_launcher_snake_mdpi.png" density="mdpi" />
       <icon src="www/img/ic_launcher_snake_hdpi.png" density="hdpi" />
       <icon src="www/img/ic_launcher_snake_xhdpi.png" density="xhdpi" />
