@@ -51,7 +51,7 @@ Menu Navigation button. */
 
 
 }
-@media (min-width:720px){
+@media (min-width:550px){
     /* At this breakpoint, hamburger menu disappears and the title must fill all the width of the column so that the text
     is centred properly. */
     .col-header:last-child{
@@ -108,7 +108,7 @@ sizes. Then any text paragraph can be set using rem unit. */
     }
 }
 
-h2, h3, p, td{
+h2, h3, p, td, th{
 	padding:0.6rem 2rem;
 }
 
@@ -222,7 +222,8 @@ border-right-width: 0px;
 
     .st-content-inner{
         /* Set minimum hieght to push the footer down to the page*/
-        min-height: 93.1%;
+        min-height: 89%;
+/*        height: 88%;*/
         background-color: hsl(69,18%,69%);
     }
 
@@ -296,7 +297,7 @@ border-right-width: 0px;
       transform: translate3d(-100%, 0, 0) rotateY(0deg);
     }
 
-@media all and (min-width:720px){
+@media all and (min-width:550px){
   #hamburger-menu{
       display: none;
   }
@@ -392,9 +393,11 @@ header{
 footer {
     background: hsl(69,45%,82%);
     /* Adjust position of footer with respect to main content div.*/
+/*
     position: absolute;
     left: 0;
     bottom: -65px;
+*/
     height: 65px; /* Same height as header*/
     width: 100%;
 }
@@ -402,9 +405,13 @@ footer {
 
 /* Location page styling
 ==================================================================*/
+#output{
+    padding-left: 2rem;
+}
 #inner-arch{
     fill: #C6ED00;
     /* Since artboard size is 300x300, change point around which rotation will take place to be middle of artboard instead of 0 0 (top-left corner)*/
+    -webkit-transform-origin: 150px 150px;
     transform-origin: 150px 150px;
     -webkit-animation:  rotate 1s linear infinite;
     -moz-animation   :  rotate 1s linear infinite;
@@ -413,8 +420,12 @@ footer {
 }
 
 #canvas-map{
-    padding-left: 2rem;
+/*    padding-left: 2rem;*/
     width: 70%;
+}
+
+#lat-lon{
+    padding-left: 0;
 }
 
 /* Conract Page Styling
@@ -428,7 +439,7 @@ table{
 table tr{
     text-align: left;
     margin: 2% 0;
-    font-size: 1.3rem;
+/*    font-size: 1.3rem;*/
 }
 
 table tr th{
@@ -449,7 +460,7 @@ table tr td img{
 	max-width: 250px;
 	display: block;
 	margin: 2em;
-	padding: 1em 2em;
+	padding: 0.5em 2em;
 
 	background: hsl(69,100%,12%);
 	color: #f3efe0;
@@ -506,6 +517,36 @@ table tr td img{
 	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 }
 
+/* Media Queries for Landscape Orientation
+==================================================================*/
+@media only screen and (orientation : landscape){
+    .flexible-font{
+        font-size:  2vw;
+    }
+
+    header,
+    footer{
+        height: 48px;
+    }
+
+/*
+    footer{
+        bottom: -48px;
+    }
+*/
+
+    header{
+        padding-top: 5px;
+    }
+
+    .st-content-inner{
+/*        height: 86%;*/
+        min-height: 86.5%;
+    }
+    .nav [data-role="pagelink"] span{
+        padding-top: 10px;
+    }
+}
 
 /* Animations
 ==================================================================*/

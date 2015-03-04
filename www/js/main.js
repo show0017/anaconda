@@ -21,7 +21,7 @@ var anacondaApp = (function(){
         /* Check if the user is resizing the window and hamburger menu is opened. Then toggle the menu
         and remove st-menu-open class so that if the user resize the window for small screen again,
         the small-screen navigation bar is always hidden. */
-        if ((720<window.innerWidth) &&
+        if ((550<window.innerWidth) &&
             (-1 !== container.className.indexOf("st-menu-open"))){
             var hamburgerMenu = document.querySelector("#hamburger-menu");
             /* Note that the remoaval of st-menu-open class is done inside toggling function of hamburger menu.*/
@@ -249,9 +249,9 @@ var position = (function (){
 
         var canvasPaddingInPx = getComputedStyle(canvas,null).getPropertyValue("padding-left");
         /* remove px from the padding string*/
-        canvasPaddingInPx = canvasPaddingInPx.substring(0, canvasPaddingInPx.length-2);
-        console.log(canvasPaddingInPx);
-        var canvasComputedWidth = canvas.width - 2* canvasPaddingInPx;
+//        canvasPaddingInPx = canvasPaddingInPx.substring(0, canvasPaddingInPx.length-2);
+//        console.log(canvasPaddingInPx);
+//        var canvasComputedWidth = canvas.width - 2* canvasPaddingInPx;
         var context = canvas.getContext("2d");
 
         // Create new img element
@@ -273,7 +273,7 @@ var position = (function (){
             position.coords.latitude+','+
             position.coords.longitude+'&'+
             'zoom=14'+ '&'+
-            'size='+canvasComputedWidth+'x400'+'&'+
+            'size='+canvas.width+'x400'+'&'+
             'markers=color:red'+'|'+
             position.coords.latitude+','+
             position.coords.longitude+'&'+
@@ -422,7 +422,7 @@ var siteNavigator = (function(){
             links[destPageId+"-wideScreen"].className = "active-link";
 
             /* Activate SVG animation for the navigation bar that is hidden.*/
-            if(720>window.innerWidth){
+            if(550>window.innerWidth){
                 /* case: small screen navigation bar is displayed and user clicks on a link.
                 The link SVG of the wide screen navigation bar must be acitvated as well.
                 Thus the same user experience is kept upon window resizing.*/
