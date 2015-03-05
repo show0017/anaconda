@@ -116,16 +116,12 @@ h1,h2,h3,h4{
     font-family: Tahoma, Verdana, Geneva; /* Second Font-Family Stack*/
 }
 
-body{
-    /* Let the body fills the whole page vertically, this helps in Sticky Footer creation. */
-    height: 100%;
-}
-
 /*
 Nav Bar
 ==============================================================*/
 #hamburger-menu {
     display: inline-block;
+    margin-top: 3px;
 }
 
 #wide-screen-nav-bar{
@@ -222,7 +218,7 @@ border-right-width: 0px;
 
     .st-content-inner{
         /* Set minimum hieght to push the footer down to the page*/
-        height: 89%;
+        min-height: 89%;
 /*        height: 88%;*/
         background-color: hsl(69,18%,69%);
     }
@@ -347,6 +343,7 @@ header{
 }
 
 [data-role="header"] h1{
+  margin-top: 8px;
   text-shadow: 3px 2px 2px #475500;
 -webkit-text-stroke: 1px #475500;
   color: white;
@@ -437,7 +434,6 @@ footer {
 table{
     width: 100%;
     padding-left: 2rem;
-    margin: 1% 0;
 }
 
 table tr{
@@ -545,7 +541,7 @@ table tr td img{
 
     .st-content-inner{
 /*        height: 86%;*/
-        height: 86.5%;
+        min-height: 86%;
     }
     .nav [data-role="pagelink"] span{
         padding-top: 10px;
