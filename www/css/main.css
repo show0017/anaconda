@@ -87,9 +87,10 @@ html{
 /* This class is applied on body tag so that root font-size is set according to different screen
 sizes. Then any text paragraph can be set using rem unit. */
 .flexible-font{
-    font-size: 4vw;
+    font-size: 5vmin;
 }
 
+/*
 @media all and (min-width:600px){
     .flexible-font{
         font-size: 3vw;
@@ -107,6 +108,7 @@ sizes. Then any text paragraph can be set using rem unit. */
         font-size: 1.6vw;
     }
 }
+*/
 
 h2, h3, p, td, th{
 	padding:0.6rem 2rem;
@@ -114,6 +116,10 @@ h2, h3, p, td, th{
 
 h1,h2,h3,h4{
     font-family: Tahoma, Verdana, Geneva; /* Second Font-Family Stack*/
+}
+
+p{
+    font-size: 1.2rem;
 }
 
 /*
@@ -244,7 +250,7 @@ border-right-width: 0px;
         top: 0;
         left: 0;
         z-index: 100;
-        width: 300px;
+        width: 200px;
         height: 100%;
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
@@ -281,8 +287,8 @@ border-right-width: 0px;
     }
 
     .rotate-in-3d.st-menu-open .st-pusher {
-      -webkit-transform: translate3d(300px, 0, 0);
-      transform: translate3d(300px, 0, 0);
+      -webkit-transform: translate3d(200px, 0, 0);
+      transform: translate3d(200px, 0, 0);
     }
 
     .rotate-in-3d.st-menu-open .rotate-in-3d.st-menu {
@@ -520,23 +526,19 @@ table tr td img{
 /* Media Queries for Landscape Orientation
 ==================================================================*/
 @media only screen and (orientation : landscape){
+/*
     .flexible-font{
         font-size:  2vw;
     }
+*/
 
     header,
     footer{
         height: 48px;
     }
 
-/*
-    footer{
-        bottom: -48px;
-    }
-*/
-
-    header{
-        padding-top: 5px;
+    [data-role="header"] h1{
+        margin-top: 0px;
     }
 
     .st-content-inner{
