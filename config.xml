@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="ca.edumedia.show0017.anaconda" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Anaconda</name>
+    <name>show0017</name>
     <description>
         A sample application to test single page application.
     </description>
